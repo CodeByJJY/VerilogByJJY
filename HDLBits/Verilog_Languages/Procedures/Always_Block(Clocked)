@@ -1,0 +1,25 @@
+module top_module(
+	input clk, a, b,
+	output wire out_assign,
+	output reg out_always_comb,
+	output reg out_always_ff
+	);
+	
+	// assign x = y : Combinational Logic
+	assign out_assign = a^b;   // ^ : xor
+	
+	// always (조건) : '조건'을 만족하면 항상 실행된다.
+	
+	// (*) : 항상 실행됨.
+	always @(*) begin
+		out_always_comb = a^b;  // 바로 위의 assign 구문과 동일.
+	end
+	
+	// (posedge clk) : clk rising에서만 실행됨.
+	// (negedge clk) : clk falling에서만 실행됨.
+	// (clk) : clk rising/falling edge 모두에서 실행됨.
+	always @(posedge clk) begin
+		out_always_ff <= a^b      // <= : Blocking vs. Non-blocking 구문의 차이... D F/F 사용.
+	end
+	
+endmodule
