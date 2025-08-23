@@ -1,0 +1,17 @@
+// synthesis verilog_input_version verilog_2001
+module top_module (
+    input  [3:0] in,
+    output reg [1:0] pos
+);
+    integer i;
+
+    always @(*) begin
+        pos = 2'b00;              // 기본값(래치 방지)
+        for (i = 3; i >= 0; i = i - 1) begin : FIND1
+            if (in[i]) begin
+                pos = i[1:0];
+                disable FIND1;    // named block 종료 == break 효과
+            end
+        end
+    end
+endmodule
